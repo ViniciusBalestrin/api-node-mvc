@@ -50,6 +50,20 @@ const Usuario = {
                 return resolve(elements);
             });
         });
+    },
+
+    updateUser: async(request) => {
+        const sql = "UPDATE usuarios SET nome=' " + request.nome + " ' sobrenome = ' " + request.sobrenome + " ' WHERE id = " + request.id;
+
+        return new Promise((resolve, reject) =>{
+            config.query(sql,  (error, elements) =>{
+                if(error){
+                    reject(error);
+                }
+
+                resolve(elements);
+            });
+        });
     }
 }
 
