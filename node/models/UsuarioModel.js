@@ -39,7 +39,7 @@ const Usuario = {
     },
 
     newUser: async(request) => {
-        const sql = "INSERT INTO usuarios (nome, sobrenome) VALUES (" + request.nome + "," + request.sobrenome + ")";
+        const sql = "INSERT INTO usuarios (nome, sobrenome) VALUES ( ' " + request.nome + " ' , ' " + request.sobrenome +  " ')";
 
         return new Promise((resolve, reject) =>{
             config.query(sql,  (error, elements) =>{
