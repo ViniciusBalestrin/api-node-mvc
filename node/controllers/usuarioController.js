@@ -54,21 +54,20 @@ const usuarioController = {
 
     updateUser: async(req, resp) => {
         try {
-            if(!req.params.id)
-                return resp.status(404).json({ "status" : "error", "message" : "Informe o id do usuario"});
+            if(isNaN(req.params.id))
+                return resp.status(404).json({ "status" : "error", "message" : "Id do usuario invalido"});
 
-            const updateUser = await UsuarioModel.updateUser(req.body)
+            const updateUser = await UsuarioModel.updateUser(req.body, req.params.id)
 
-            console.log('pp', updateUser);
-            if(updateUser.length == 0)
-                return resp.status(404).json({ "message" : "Usuario nao localizado"});
+            if(updateUser.affectedRows == 0)
+                return resp.status(404).json({ "message" : "Impossivel atualizar, verifique se o usuario existe ou os parametros estão corretos"});
 
             return resp.status(200).json({
                 "status" : "success",
                 "data" : updateUser
             });
         } catch (error) {
-            
+            resp.status(500).json({"error" : "Erro ao atualizar usuario" + error});
         }
     }
 }

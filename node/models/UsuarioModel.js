@@ -52,16 +52,15 @@ const Usuario = {
         });
     },
 
-    updateUser: async(request) => {
-        const sql = "UPDATE usuarios SET nome=' " + request.nome + " ' sobrenome = ' " + request.sobrenome + " ' WHERE id = " + request.id;
-
+    updateUser: async(request, id) => {
+        const sql = "UPDATE usuarios SET nome='" + request.nome + "', sobrenome = '" + request.sobrenome + "' WHERE id = " + id;
         return new Promise((resolve, reject) =>{
             config.query(sql,  (error, elements) =>{
                 if(error){
-                    reject(error);
+                    return reject(error);
                 }
 
-                resolve(elements);
+                return resolve(elements);
             });
         });
     }
